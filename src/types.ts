@@ -23,4 +23,10 @@ export interface PluginConfig extends Config {
      * @default ""
      */
     tags?: string[]
+    /**
+     * Flag to bump parents along with the next release version
+     *
+     * @default false
+     */
+    bumpParents?: boolean
 }
