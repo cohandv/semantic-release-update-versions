@@ -97,5 +97,5 @@ option
 
 ```bash
 npm install -g tsx
-npx tsx localRun.ts
+npx tsx src/localRun.ts
 ```

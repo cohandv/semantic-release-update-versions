@@ -15,9 +15,9 @@ async function run() {
     console.log(`Successfully logged in to ${awsLoginValue.registry}`)
 
     const pluginConfig = {
-        "buildImage": "docker build . -t my-ecr-image",
+        "buildImage": "docker build . -f ../Dockerfile",
         "imageName": "my-ecr-image",
-        "tags": ["latest", "$NODE_ENV"],
+        "tags": ["latest"],
         "bumpParents": false
     }
 
