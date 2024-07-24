@@ -10,7 +10,7 @@ export type AWSConfigType = {
      *
      * @default ""
      */
-    region: string | null
+    region: string
     /**
      * AWS secret key
      *

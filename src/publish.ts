@@ -4,11 +4,11 @@ import { AWS } from './aws.js'
 import type { AWSConfigType } from './aws.types.js'
 import { Docker } from './docker.js'
 import { getError } from './error.js'
-import type { PluginConfig, WithoutNullableKeysType } from './types.js'
+import type { PluginConfig } from './types.js'
 
 export async function publish(pluginConfig: PluginConfig, context: PublishContext): Promise<void> {
-    const awsConfig = AWS.loadConfig(context) as WithoutNullableKeysType<AWSConfigType>
-    const aws = new AWS(awsConfig.accessKeyId, awsConfig.region, awsConfig.secretAccessKey)
+    const awsConfig = AWS.loadConfig(context) as AWSConfigType;
+    const aws = new AWS(awsConfig.region, awsConfig.accessKeyId, awsConfig.secretAccessKey)
 
     const awsLoginValue = await aws.login()
 

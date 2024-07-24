@@ -10,7 +10,7 @@ export class Docker {
     public static loadConfig(pluginConfig: PluginConfig, context: PublishContext): DockerConfigType {
         const tags: string[] = []
         const nextReleaseVersion = context.nextRelease.version;
-        const rawTags: string[] = [nextReleaseVersion, nextReleaseVersion.charAt(0), `${nextReleaseVersion.charAt(0)}.${nextReleaseVersion.charAt(2)}`]
+        const rawTags: string[] = [nextReleaseVersion]
         
         // Add the next release version but also add parents to bump to latest build
         if (pluginConfig.bumpParents) {

@@ -662,6 +662,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@cjpablo92/semantic-release-ecr@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@cjpablo92/semantic-release-ecr@workspace:."
+  dependencies:
+    "@aws-sdk/client-ecr": "npm:^3.600.0"
+    "@biomejs/biome": "npm:^1.8.2"
+    "@commitlint/cli": "npm:^19.3.0"
+    "@commitlint/config-conventional": "npm:^19.2.2"
+    "@semantic-release/commit-analyzer": "npm:^13.0.0"
+    "@semantic-release/git": "npm:^10.0.1"
+    "@semantic-release/github": "npm:^10.0.6"
+    "@semantic-release/npm": "npm:^12.0.1"
+    "@semantic-release/release-notes-generator": "npm:^14.0.1"
+    "@types/node": "npm:^20.14.8"
+    commitizen: "npm:^4.3.0"
+    conventional-changelog-conventionalcommits: "npm:^8.0.0"
+    cspell: "npm:^8.9.1"
+    husky: "npm:^9.0.11"
+    pinst: "npm:^3.0.0"
+    semantic-release: "npm:^24.0.0"
+    tsup: "npm:^8.1.0"
+    turbo: "npm:^2.0.5"
+    typescript: "npm:^5.5.2"
+  peerDependencies:
+    semantic-release: ">=20"
+  languageName: unknown
+  linkType: soft
+
 "@colors/colors@npm:1.5.0":
   version: 1.5.0
   resolution: "@colors/colors@npm:1.5.0"
@@ -2055,34 +2083,6 @@ __metadata:
   checksum: 10/ffb1e2c805a903b57fd9bc15eaf48778f550e9661b0c0ca6743ed2358cb73b334a32d467d544752cdd404bbee0d9f63c51f2606f7320c2fdf9aac9edd1d8a695
   languageName: node
   linkType: hard
-
-"@rimac-technology/semantic-release-ecr@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "@rimac-technology/semantic-release-ecr@workspace:."
-  dependencies:
-    "@aws-sdk/client-ecr": "npm:^3.600.0"
-    "@biomejs/biome": "npm:^1.8.2"
-    "@commitlint/cli": "npm:^19.3.0"
-    "@commitlint/config-conventional": "npm:^19.2.2"
-    "@semantic-release/commit-analyzer": "npm:^13.0.0"
-    "@semantic-release/git": "npm:^10.0.1"
-    "@semantic-release/github": "npm:^10.0.6"
-    "@semantic-release/npm": "npm:^12.0.1"
-    "@semantic-release/release-notes-generator": "npm:^14.0.1"
-    "@types/node": "npm:^20.14.8"
-    commitizen: "npm:^4.3.0"
-    conventional-changelog-conventionalcommits: "npm:^8.0.0"
-    cspell: "npm:^8.9.1"
-    husky: "npm:^9.0.11"
-    pinst: "npm:^3.0.0"
-    semantic-release: "npm:^24.0.0"
-    tsup: "npm:^8.1.0"
-    turbo: "npm:^2.0.5"
-    typescript: "npm:^5.5.2"
-  peerDependencies:
-    semantic-release: ">=20"
-  languageName: unknown
-  linkType: soft
 
 "@rollup/rollup-android-arm-eabi@npm:4.6.0":
   version: 4.6.0

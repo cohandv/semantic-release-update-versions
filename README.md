@@ -59,8 +59,8 @@ option
 
 | Variable                | Description       | Required |
 | ----------------------- | ----------------- | :------: |
-| `AWS_ACCESS_KEY_ID`     | AWS access key id |    ✓     |
-| `AWS_SECRET_ACCESS_KEY` | AWS secret key    |    ✓     |
+| `AWS_ACCESS_KEY_ID`     | AWS access key id |          |
+| `AWS_SECRET_ACCESS_KEY` | AWS secret key    |          |
 | `AWS_DEFAULT_REGION`    | AWS region        |    ✓     |
 
 ### Options
@@ -70,6 +70,7 @@ option
 | `buildImage` | Docker command which will build an image                                                                                                                                                                                                                                                                    |                       |          |
 | `imageName`  | The name of the image to push to the ECR. The name should be the same as your ECR repository name (example: `my-ecr-image`). Remember that you don't need to add your registry URL in front of the image name, the plugin will fetch this URL from AWS and add it for you. Don't add tag in the `imageName` |                       |    ✓     |
 | `tags`       | Array of string which can be static values like `latest` or environment variables like `$NODE_ENV`                                                                                                                                                                                                          | `nextRelease.version` |          |
+| `bumpParents`| Flag to bump related tags along with the specific release version (E.G: if set to true when publishing the 1.5.0 version it will also publish 1 and 1.5)                                                                                                                                                    | false                 |          |
 
 ### Example
 
@@ -84,9 +85,17 @@ option
             {
                 "buildImage": "docker build . -t my-ecr-image",
                 "imageName": "my-ecr-image",
-                "tags": ["latest", "$NODE_ENV"]
+                "tags": ["latest", "$NODE_ENV"],
+                "bumpParents": false
             }
         ]
     ]
 }
+```
+
+### Run locally
+
+```bash
+npm install -g tsx
+npx tsx localRun.ts
 ```

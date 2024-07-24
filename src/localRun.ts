@@ -1,0 +1,27 @@
+
+import { AWS } from './aws.js';
+
+import { publish } from './publish.js';
+
+async function run() {
+    const awsConfig = {
+        region: 'region',
+    }
+
+    const aws = new AWS(awsConfig.region, null, null);
+    console.log(aws.awsEcr);
+    const awsLoginValue = await aws.login()
+
+    console.log(`Successfully logged in to ${awsLoginValue.registry}`)
+
+    const pluginConfig = {
+        "buildImage": "docker build . -t my-ecr-image",
+        "imageName": "my-ecr-image",
+        "tags": ["latest", "$NODE_ENV"],
+        "bumpParents": false
+    }
+
+    // publish(pluginConfig, );
+}
+
+run();

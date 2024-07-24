@@ -1,5 +1,5 @@
 {
-    "name": "@rimac-technology/semantic-release-ecr",
+    "name": "@cjpablo92/semantic-release-ecr",
     "version": "2.0.7",
     "description": "Semantic-release plugin to publish a docker image to the AWS Elastic Container Registry",
     "keywords": [

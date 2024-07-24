@@ -8,7 +8,7 @@ import { getError } from './error.js'
 
 export class AWS {
     public static loadConfig(context: VerifyConditionsContext): AWSConfigType {
-        let region: string | null = null
+        let region: string = "us-east-1"
         let accessKeyId: string | null = null
         let secretAccessKey: string | null = null
 
@@ -33,14 +33,20 @@ export class AWS {
 
     public readonly awsEcr: InstanceType<typeof ECRClient>
 
-    constructor(accessKeyId: string, region: string, secretAccessKey: string) {
-        this.awsEcr = new ECRClient({
-            credentials: {
-                accessKeyId,
-                secretAccessKey,
-            },
-            region,
-        })
+    constructor(region: string, accessKeyId: string | null, secretAccessKey: string | null) {
+        if(accessKeyId && secretAccessKey) {
+            this.awsEcr = new ECRClient({
+                credentials: {
+                    accessKeyId,
+                    secretAccessKey,
+                },
+                region,
+            });   
+        } else {
+            this.awsEcr = new ECRClient({
+                region,
+            });
+        } 
     }
 
     public async login(): Promise<AWSLoginValueType> {
