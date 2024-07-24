@@ -5,7 +5,7 @@ import { publish } from './publish.js';
 
 async function run() {
     const awsConfig = {
-        region: 'region',
+        region: 'us-east-1',
     }
 
     const aws = new AWS(awsConfig.region, null, null);
