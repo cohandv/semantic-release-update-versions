@@ -55,14 +55,16 @@ The plugin can be configured in the
         "@semantic-release/npm",
         [
             "@cjpablo92/semantic-release-ecr",
-            [
-                {
-                    "imageName": "my-ecr-image-component-1"
-                },
-                {
-                    "imageName": "my-ecr-image-component-2"
-                }
-            ]
+            {
+                "config": [
+                    {
+                        "imageName": "my-ecr-image-component-1"
+                    },
+                    {
+                        "imageName": "my-ecr-image-component-2"
+                    }
+                ]
+            }
         ]
     ]
 }
@@ -131,22 +133,24 @@ option
         "@semantic-release/npm",
         [
             "@cjpablo92/semantic-release-ecr",
-            [
-                {
-                    "buildImage": "docker build . -t my-ecr-image-component-1",
-                    "imageName": "my-ecr-image",
-                    "tags": ["latest", "$NODE_ENV", "component-1"],
-                    "bumpParents": false,
-                    "suffix": "component-1"
-                },
-                {
-                    "buildImage": "docker build . -t my-ecr-image-component-2",
-                    "imageName": "my-ecr-image",
-                    "tags": ["latest", "$NODE_ENV", "component-2"],
-                    "bumpParents": false,
-                    "suffix": "component-2"
-                }
-            ]
+            { 
+                "config": [
+                    {
+                        "buildImage": "docker build . -t my-ecr-image-component-1",
+                        "imageName": "my-ecr-image",
+                        "tags": ["latest", "$NODE_ENV", "component-1"],
+                        "bumpParents": false,
+                        "suffix": "component-1"
+                    },
+                    {
+                        "buildImage": "docker build . -t my-ecr-image-component-2",
+                        "imageName": "my-ecr-image",
+                        "tags": ["latest", "$NODE_ENV", "component-2"],
+                        "bumpParents": false,
+                        "suffix": "component-2"
+                    }
+                ]
+            }
         ]
     ]
 }
