@@ -3,17 +3,10 @@ import { publish } from './publish.js';
 import { prepare } from './prepare.js';
 import { stderr, stdout } from 'process';
 
-import type {ReleaseType} from 'semantic-release'
+import type {PrepareContext, PublishContext, ReleaseType, VerifyConditionsContext} from 'semantic-release'
 import {verifyConditions} from "./verifyConditions.js";
 
 async function run() {
-    // const pluginConfig = {
-    //     "buildImage": "docker build . -f ../Dockerfile -t semantic-release-ecr",
-    //     "imageName": "semantic-release-ecr",
-    //     "tags": ["latest"],
-    //     "bumpParents": true
-    // }
-
     const pluginConfig = [{
             "buildImage": "docker build . -f ../Dockerfile -t semantic-release-ecr",
             "imageName": "semantic-release-ecr",
@@ -70,24 +63,9 @@ async function run() {
 
     }
 
-    const verifyContext = {
-            env: {
-                AWS_DEFAULT_REGION: "us-east-1",
-            },
-            envCi: {
-                isCi: false,
-                commit: "1234567890",
-                branch:"main" ,
-            },
-            branch: {
-                name:"main"
-            },
-            branches: [],
-    }
-
-    verifyConditions(pluginConfig, verifyContext);
-    await prepare(pluginConfig, context);
-    await publish(pluginConfig, context);
+    verifyConditions(pluginConfig, context as VerifyConditionsContext);
+    await prepare(pluginConfig, context as PrepareContext);
+    await publish(pluginConfig, context as PublishContext);
 }
 
 run();
