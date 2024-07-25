@@ -109,7 +109,7 @@ option
         "@semantic-release/release-notes-generator",
         "@semantic-release/npm",
         [
-            "@rimac-technology/semantic-release-ecr",
+            "@cjpablo92/semantic-release-ecr",
             {
                 "buildImage": "docker build . -t my-ecr-image",
                 "imageName": "my-ecr-image",
@@ -130,7 +130,7 @@ option
         "@semantic-release/release-notes-generator",
         "@semantic-release/npm",
         [
-            "@rimac-technology/semantic-release-ecr",
+            "@cjpablo92/semantic-release-ecr",
             [
                 {
                     "buildImage": "docker build . -t my-ecr-image-component-1",
