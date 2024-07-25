@@ -16,10 +16,8 @@ module.exports = {
         'ENOAUTHORIZATION',
         'ENOIMAGE',
         'EDEPLOY',
-        'ENOACCESSKEYID',
         'ENOAUTHENTICATION',
         'ENOIMAGENAME',
         'ENOREGION',
-        'ENOSECRETACCESSKEY',
     ],
 }

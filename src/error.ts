@@ -20,34 +20,14 @@ class SemanticReleaseError extends Error {
 type ErrorCodesType =
     | 'EBUILD'
     | 'EDEPLOY'
-    | 'ENOACCESSKEYID'
     | 'ENOAUTHENTICATION'
     | 'ENOAUTHORIZATION'
     | 'ENOIMAGE'
     | 'ENOIMAGENAME'
     | 'ENOREGION'
-    | 'ENOSECRETACCESSKEY'
 
 export function getError(code: ErrorCodesType): SemanticReleaseError {
     switch (code) {
-        case 'ENOACCESSKEYID': {
-            return new SemanticReleaseError(
-                'No aws access key id specified.',
-                'ENOACCESSKEYID',
-                'An aws access key id must be created and set ' +
-                    'in the `AWS_ACCESS_KEY_ID` environment variable on your CI environment.',
-            )
-        }
-
-        case 'ENOSECRETACCESSKEY': {
-            return new SemanticReleaseError(
-                'No aws secret access key specified.',
-                'ENOSECRETACCESSKEY',
-                'An aws secret access key id must be created and set ' +
-                    'in the `AWS_SECRET_ACCESS_KEY` environment variable on your CI environment.',
-            )
-        }
-
         case 'ENOREGION': {
             return new SemanticReleaseError(
                 'No aws region specified.',

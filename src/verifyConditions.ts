@@ -5,26 +5,18 @@ import { getError } from './error.js'
 import type { PluginConfig } from './types.js'
 
 export function verifyConditions(pluginConfig: PluginConfig, context: VerifyConditionsContext): void {
-    const errors = []
-    const awsConfig = AWS.loadConfig(context)
-
-    if (!awsConfig.accessKeyId) {
-        errors.push(getError('ENOACCESSKEYID'))
-    }
-
-    if (!awsConfig.secretAccessKey) {
-        errors.push(getError('ENOSECRETACCESSKEY'))
-    }
+    const errors = [];
+    const awsConfig = AWS.loadConfig(context);
 
     if (!awsConfig.region) {
-        errors.push(getError('ENOREGION'))
+        errors.push(getError('ENOREGION'));
     }
 
     if (!pluginConfig.imageName) {
-        errors.push(getError('ENOIMAGENAME'))
+        errors.push(getError('ENOIMAGENAME'));
     }
 
     if (errors.length > 0) {
-        throw new AggregateError(errors)
+        throw new AggregateError(errors);
     }
 }

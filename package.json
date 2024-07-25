@@ -1,6 +1,6 @@
 {
     "name": "@cjpablo92/semantic-release-ecr",
-    "version": "2.0.7",
+    "version": "1.0.0",
     "description": "Semantic-release plugin to publish a docker image to the AWS Elastic Container Registry",
     "keywords": [
         "release",
@@ -8,13 +8,13 @@
         "ecr",
         "aws"
     ],
-    "homepage": "https://github.com/RimacTechnology/semantic-release-ecr#readme",
+    "homepage": "https://github.com/cjpablo92/semantic-release-ecr#readme",
     "bugs": {
-        "url": "https://github.com/RimacTechnology/semantic-release-ecr/issues"
+        "url": "https://github.com/cjpablo92/semantic-release-ecr/issues"
     },
-    "repository": "git@github.com:RimacTechnology/semantic-release-ecr.git",
+    "repository": "git@github.com:cjpablo92/semantic-release-ecr.git",
     "license": "MIT",
-    "author": "Rimac Technology d.o.o.",
+    "author": "David & JP",
     "type": "module",
     "exports": {
         ".": {

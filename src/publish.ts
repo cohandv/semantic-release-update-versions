@@ -8,11 +8,11 @@ import type { PluginConfig } from './types.js'
 
 export async function publish(pluginConfig: PluginConfig | Array<PluginConfig>, context: PublishContext): Promise<void> {
     const awsConfig = AWS.loadConfig(context) as AWSConfigType;
-    const aws = new AWS(awsConfig.region, awsConfig.accessKeyId, awsConfig.secretAccessKey)
+    const aws = new AWS(awsConfig.region, awsConfig.accessKeyId, awsConfig.secretAccessKey);
 
-    const awsLoginValue = await aws.login()
+    const awsLoginValue = await aws.login();
 
-    context.logger.log(`Successfully logged in to ${awsLoginValue.registry}`)
+    context.logger.log(`Successfully logged in to ${awsLoginValue.registry}`);
 
     const docker = new Docker()
     const dockerLogin = await docker.login(awsLoginValue.username, awsLoginValue.password, awsLoginValue.registry)
