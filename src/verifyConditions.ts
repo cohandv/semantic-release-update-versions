@@ -2,9 +2,9 @@ import type { VerifyConditionsContext } from 'semantic-release'
 
 import { AWS } from './aws.js'
 import { getError } from './error.js'
-import type { PluginConfig } from './types.js'
+import type { PluginConfig, MultiReleaseConfig } from './types.js'
 
-export function verifyConditions(pluginConfig: PluginConfig | Array<PluginConfig>, context: VerifyConditionsContext): void {
+export function verifyConditions(pluginConfig: PluginConfig | MultiReleaseConfig, context: VerifyConditionsContext): void {
     const errors = [];
     const awsConfig = AWS.loadConfig(context);
 
@@ -12,14 +12,14 @@ export function verifyConditions(pluginConfig: PluginConfig | Array<PluginConfig
         errors.push(getError('ENOREGION'));
     }
 
-    if(Array.isArray(pluginConfig)) {
-        pluginConfig.map(async (config) => {
+    if((pluginConfig as MultiReleaseConfig).configs) {
+        (pluginConfig as MultiReleaseConfig).configs.map(async (config) => {
             if (!config.imageName) {
                 errors.push(getError('ENOIMAGENAME'));
             }
         });
     } else {
-        if (!pluginConfig.imageName) {
+        if (!(pluginConfig as PluginConfig).imageName) {
             errors.push(getError('ENOIMAGENAME'));
         }
     }

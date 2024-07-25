@@ -36,3 +36,10 @@ export interface PluginConfig extends Config {
      */
     suffix?: string
 }
+
+export interface MultiReleaseConfig extends Config {
+    /**
+     * List of plugin configurations
+     */
+    configs: PluginConfig[]
+}

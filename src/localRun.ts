@@ -1,29 +1,33 @@
 
 import { publish } from './publish.js';
 import { prepare } from './prepare.js';
-import { stderr, stdout } from 'process';
+import { stderr, stdout } from 'node:process';
 
 import type {PrepareContext, PublishContext, ReleaseType, VerifyConditionsContext} from 'semantic-release'
 import {verifyConditions} from "./verifyConditions.js";
 
 async function run() {
-    const pluginConfig = [{
-            "buildImage": "docker build . -f ../Dockerfile -t semantic-release-ecr",
-            "imageName": "semantic-release-ecr",
-            "tags": ["latest-consumer","consumer"],
-            "suffix": "consumer",
-            "bumpParents": true
-        },
-        {
-            "buildImage": "docker build . -f ../Dockerfile -t semantic-release-ecr",
-            "imageName": "semantic-release-ecr",
-            "tags": ["latest-producer","producer"],
-            "suffix": "producer",
-            "bumpParents": true
-        }
-    ];
-    let nextReleaseVersion = "1.0.5";
-    let latestReleaseVersion = "1.0.4";
+    const multiReleaseConfig = {
+        configs: [
+            {
+                "buildImage": "docker build . -f ../Dockerfile -t semantic-release-ecr",
+                "imageName": "semantic-release-ecr",
+                "tags": ["latest-consumer","consumer"],
+                "suffix": "consumer",
+                "bumpParents": true
+            },
+            {
+                "buildImage": "docker build . -f ../Dockerfile -t semantic-release-ecr",
+                "imageName": "semantic-release-ecr",
+                "tags": ["latest-producer","producer"],
+                "suffix": "producer",
+                "bumpParents": true
+            }
+        ]
+    }
+
+    const nextReleaseVersion = "1.0.7";
+    const latestReleaseVersion = "1.0.6";
 
     const context = {
         nextRelease: {
@@ -63,9 +67,9 @@ async function run() {
 
     }
 
-    verifyConditions(pluginConfig, context as VerifyConditionsContext);
-    await prepare(pluginConfig, context as PrepareContext);
-    await publish(pluginConfig, context as PublishContext);
+    verifyConditions(multiReleaseConfig, context as VerifyConditionsContext);
+    await prepare(multiReleaseConfig, context as PrepareContext);
+    await publish(multiReleaseConfig, context as PublishContext);
 }
 
 run();

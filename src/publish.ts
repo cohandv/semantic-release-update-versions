@@ -4,9 +4,9 @@ import { AWS } from './aws.js'
 import type { AWSConfigType } from './aws.types.js'
 import { Docker } from './docker.js'
 import { getError } from './error.js'
-import type { PluginConfig } from './types.js'
+import type { PluginConfig, MultiReleaseConfig } from './types.js'
 
-export async function publish(pluginConfig: PluginConfig | Array<PluginConfig>, context: PublishContext): Promise<void> {
+export async function publish(pluginConfig: PluginConfig | MultiReleaseConfig, context: PublishContext): Promise<void> {
     const awsConfig = AWS.loadConfig(context) as AWSConfigType;
     const aws = new AWS(awsConfig.region, awsConfig.accessKeyId, awsConfig.secretAccessKey);
 
@@ -21,12 +21,12 @@ export async function publish(pluginConfig: PluginConfig | Array<PluginConfig>, 
         throw new AggregateError([getError('ENOAUTHENTICATION')])
     }
 
-    if(Array.isArray(pluginConfig)) {
-        Promise.all(pluginConfig.map(async (config) => {
+    if((pluginConfig as MultiReleaseConfig).configs) {
+        Promise.all((pluginConfig as MultiReleaseConfig).configs.map(async (config) => {
             await publishSingle(config, context, docker, awsLoginValue.registry);
         }));
     } else {
-        await publishSingle(pluginConfig, context, docker, awsLoginValue.registry);
+        await publishSingle(pluginConfig as PluginConfig, context, docker, awsLoginValue.registry);
     }
 }
 

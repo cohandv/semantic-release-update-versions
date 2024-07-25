@@ -2,15 +2,15 @@ import type { PrepareContext } from 'semantic-release'
 
 import { Docker } from './docker.js'
 import { getError } from './error.js'
-import type { PluginConfig } from './types.js'
+import type { PluginConfig, MultiReleaseConfig } from './types.js'
 
-export async function prepare(pluginConfig: PluginConfig | Array<PluginConfig>, context: PrepareContext): Promise<void> {
-    if(Array.isArray(pluginConfig)) {
-        Promise.all(pluginConfig.map(async (config) => {
+export async function prepare(pluginConfig: PluginConfig | MultiReleaseConfig, context: PrepareContext): Promise<void> {
+    if((pluginConfig as MultiReleaseConfig).configs) {
+        Promise.all((pluginConfig as MultiReleaseConfig).configs.map(async (config) => {
             await prepareSingle(config, context);
         }));
     } else {
-        await prepareSingle(pluginConfig, context)
+        await prepareSingle(pluginConfig as PluginConfig, context)
     }
 }
 

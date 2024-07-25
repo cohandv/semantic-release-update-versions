@@ -8,7 +8,7 @@ import { getError } from './error.js'
 
 export class AWS {
     public static loadConfig(context: VerifyConditionsContext): AWSConfigType {
-        let region: string = "us-east-1"
+        let region = "us-east-1"
         let accessKeyId: string | null = null
         let secretAccessKey: string | null = null
 
