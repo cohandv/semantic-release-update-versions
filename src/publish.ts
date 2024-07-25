@@ -6,7 +6,7 @@ import { Docker } from './docker.js'
 import { getError } from './error.js'
 import type { PluginConfig } from './types.js'
 
-export async function publish(pluginConfig: PluginConfig, context: PublishContext): Promise<void> {
+export async function publish(pluginConfig: PluginConfig | Array<PluginConfig>, context: PublishContext): Promise<void> {
     const awsConfig = AWS.loadConfig(context) as AWSConfigType;
     const aws = new AWS(awsConfig.region, awsConfig.accessKeyId, awsConfig.secretAccessKey)
 
@@ -21,19 +21,29 @@ export async function publish(pluginConfig: PluginConfig, context: PublishContex
         throw new AggregateError([getError('ENOAUTHENTICATION')])
     }
 
-    const dockerConfig = Docker.loadConfig(pluginConfig, context)
+    if(Array.isArray(pluginConfig)) {
+        Promise.all(pluginConfig.map(async (config) => {
+            await publishSingle(config, context, docker, awsLoginValue.registry);
+        }));
+    } else {
+        await publishSingle(pluginConfig, context, docker, awsLoginValue.registry);
+    }
+}
+
+async function publishSingle(pluginConfig: PluginConfig, context: PublishContext, docker: Docker, registry: string) {
+    const dockerConfig = Docker.loadConfig(pluginConfig, context);
 
     context.logger.log(
-        `Pushing ${pluginConfig.imageName} with tags [${dockerConfig.imageTags.join(', ')}] to ${awsLoginValue.registry}`,
+        `Pushing ${pluginConfig.imageName} with tags [${dockerConfig.imageTags.join(', ')}] to ${registry}`,
     )
 
-    const dockerPush = await docker.push(dockerConfig.imageName, dockerConfig.imageTags, awsLoginValue.registry)
+    const dockerPush = await docker.push(dockerConfig.imageName, dockerConfig.imageTags, registry)
 
     if (!dockerPush) {
         throw new AggregateError([getError('EDEPLOY')])
     }
 
     context.logger.log(
-        `Successfully pushed ${pluginConfig.imageName} with tags [${dockerConfig.imageTags.join(', ')}] to ${awsLoginValue.registry}`,
+        `Successfully pushed ${pluginConfig.imageName} with tags [${dockerConfig.imageTags.join(', ')}] to ${registry}`,
     )
 }

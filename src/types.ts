@@ -29,4 +29,10 @@ export interface PluginConfig extends Config {
      * @default false
      */
     bumpParents?: boolean
+    /**
+     * Suffix to add to the tags
+     *
+     * @default ""
+     */
+    suffix?: string
 }

@@ -6,21 +6,39 @@ import { stderr, stdout } from 'process';
 import type { ReleaseType } from 'semantic-release'
 
 async function run() {
-    const pluginConfig = {
-        "buildImage": "docker build . -f ../Dockerfile -t my-ecr-image",
-        "imageName": "my-ecr-image",
-        "tags": ["latest"],
-        "bumpParents": false
-    }
+    // const pluginConfig = {
+    //     "buildImage": "docker build . -f ../Dockerfile -t semantic-release-ecr",
+    //     "imageName": "semantic-release-ecr",
+    //     "tags": ["latest"],
+    //     "bumpParents": true
+    // }
+
+    const pluginConfig = [{
+            "buildImage": "docker build . -f ../Dockerfile -t semantic-release-ecr",
+            "imageName": "semantic-release-ecr",
+            "tags": ["latest-consumer","consumer"],
+            "suffix": "consumer",
+            "bumpParents": true
+        },
+        {
+            "buildImage": "docker build . -f ../Dockerfile -t semantic-release-ecr",
+            "imageName": "semantic-release-ecr",
+            "tags": ["latest-producer","producer"],
+            "suffix": "producer",
+            "bumpParents": true
+        }
+    ];
+    let nextReleaseVersion = "1.0.5";
+    let latestReleaseVersion = "1.0.4";
 
     const context = {
         nextRelease: {
             type: "major" as ReleaseType,
             channel: "latest",
-            version: "1.0.0",
+            version: nextReleaseVersion,
             gitHead: "1234567890",
-            gitTag: "v0.0.0",
-            name: "v0.0.0"
+            gitTag: `v${nextReleaseVersion}`,
+            name: `v${nextReleaseVersion}`
         },
         env: {
             AWS_DEFAULT_REGION: "us-east-1",
@@ -28,11 +46,11 @@ async function run() {
         commits: [],
         releases: [],
         lastRelease: {
-            version: "0.0.0",
+            version: latestReleaseVersion,
             gitHead: "1234567890",
-            gitTag: "v0.0.0",
+            gitTag: `v${latestReleaseVersion}`,
             channel: "latest",
-            name: "v0.0.0",
+            name: `v${latestReleaseVersion}`,
             channels: []
         },
         envCi: {

@@ -9,13 +9,18 @@ import type { PluginConfig } from './types.js'
 export class Docker {
     public static loadConfig(pluginConfig: PluginConfig, context: PublishContext): DockerConfigType {
         const tags: string[] = []
-        const nextReleaseVersion = context.nextRelease.version;
+        const nextReleaseVersion = pluginConfig.suffix ? `${context.nextRelease.version}-${pluginConfig.suffix}` :
+         context.nextRelease.version;
         const rawTags: string[] = [nextReleaseVersion]
         
         // Add the next release version but also add parents to bump to latest build
         if (pluginConfig.bumpParents) {
             const [major, minor] = nextReleaseVersion.split('.')
-            tags.push(`${major}.${minor}`, `${major}`)
+            if(pluginConfig.suffix) {
+                tags.push(`${major}.${minor}-${pluginConfig.suffix}`, `${major}-${pluginConfig.suffix}`)
+            } else {
+                tags.push(`${major}.${minor}`, `${major}`)
+            }
         }
         
         if (pluginConfig.tags) {
