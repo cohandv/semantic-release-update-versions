@@ -10,7 +10,7 @@ Container Registry using AWS IAM roles, forked from [**RimacTechnology/semantic-
 
 | Step               | Description                                                                                                                                                 |
 | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `verifyConditions` | Verify the presence of the `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` and `AWS_DEFAULT_REGION` environment variables and docker `imageName` plugin option |
+| `verifyConditions` | Verify the presence of the `AWS_DEFAULT_REGION` environment variables and docker `imageName` plugin option |
 | `publish`          | [Publish the docker image](https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-push-ecr-image.html) to the aws ecr.                               |
 | `prepare`          | [Builds the docker image](https://docs.docker.com/reference/cli/docker/buildx/build)                                                                        |
 

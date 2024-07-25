@@ -4,7 +4,7 @@ import { AWS } from './aws.js'
 import { getError } from './error.js'
 import type { PluginConfig } from './types.js'
 
-export function verifyConditions(pluginConfig: PluginConfig, context: VerifyConditionsContext): void {
+export function verifyConditions(pluginConfig: PluginConfig | Array<PluginConfig>, context: VerifyConditionsContext): void {
     const errors = [];
     const awsConfig = AWS.loadConfig(context);
 
@@ -12,8 +12,16 @@ export function verifyConditions(pluginConfig: PluginConfig, context: VerifyCond
         errors.push(getError('ENOREGION'));
     }
 
-    if (!pluginConfig.imageName) {
-        errors.push(getError('ENOIMAGENAME'));
+    if(Array.isArray(pluginConfig)) {
+        pluginConfig.map(async (config) => {
+            if (!config.imageName) {
+                errors.push(getError('ENOIMAGENAME'));
+            }
+        });
+    } else {
+        if (!pluginConfig.imageName) {
+            errors.push(getError('ENOIMAGENAME'));
+        }
     }
 
     if (errors.length > 0) {
