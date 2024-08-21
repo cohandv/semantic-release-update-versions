@@ -1,18 +1,16 @@
 {
-    "name": "@cjpablo92/semantic-release-ecr",
-    "version": "1.0.3",
-    "description": "Semantic-release plugin to publish a docker image to the AWS Elastic Container Registry",
+    "name": "@cohandv/semantic-release-update-versions",
+    "version": "1.0.1",
+    "description": "Semantic-release plugin to create a file of versions to publish",
     "keywords": [
         "release",
-        "semantic-release",
-        "ecr",
-        "aws"
+        "semantic-release"
     ],
-    "homepage": "https://github.com/cjpablo92/semantic-release-ecr#readme",
+    "homepage": "https://github.com/cohandv/semantic-release-update-versions#readme",
     "bugs": {
-        "url": "https://github.com/cjpablo92/semantic-release-ecr/issues"
+        "url": "https://github.com/cohandv/semantic-release-update-versions/issues"
     },
-    "repository": "git@github.com:cjpablo92/semantic-release-ecr.git",
+    "repository": "git@github.com:cohandv/semantic-release-update-versions.git",
     "license": "MIT",
     "author": "David & JP",
     "type": "module",
@@ -47,9 +45,6 @@
         "commitizen": {
             "path": "cz-conventional-changelog"
         }
-    },
-    "dependencies": {
-        "@aws-sdk/client-ecr": "^3.600.0"
     },
     "devDependencies": {
         "@biomejs/biome": "^1.8.2",

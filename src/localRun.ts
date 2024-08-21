@@ -1,5 +1,3 @@
-
-import { publish } from './publish.js';
 import { prepare } from './prepare.js';
 import { stderr, stdout } from 'node:process';
 
@@ -10,17 +8,22 @@ async function run() {
     const multiReleaseConfig = {
         configs: [
             {
-                "buildImage": "docker build . -f ../Dockerfile -t semantic-release-ecr",
-                "imageName": "semantic-release-ecr",
                 "tags": ["latest-consumer","consumer"],
                 "suffix": "consumer",
                 "bumpParents": true
             },
             {
-                "buildImage": "docker build . -f ../Dockerfile -t semantic-release-ecr",
-                "imageName": "semantic-release-ecr",
                 "tags": ["latest-producer","producer"],
                 "suffix": "producer",
+                "bumpParents": true
+            }
+        ]
+    }
+
+    const singleReleaseConfig = {
+        configs:[
+            {
+                "tags": ["latest-producer","producer"],
                 "bumpParents": true
             }
         ]
@@ -67,9 +70,11 @@ async function run() {
 
     }
 
-    verifyConditions(multiReleaseConfig, context as VerifyConditionsContext);
+    verifyConditions(multiReleaseConfig, context as VerifyConditionsContext)
     await prepare(multiReleaseConfig, context as PrepareContext);
-    await publish(multiReleaseConfig, context as PublishContext);
+
+    verifyConditions(singleReleaseConfig, context as VerifyConditionsContext)
+    await prepare(singleReleaseConfig, context as PrepareContext);
 }
 
 run();

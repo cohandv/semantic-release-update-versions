@@ -1,22 +1,19 @@
 import type { Config } from 'semantic-release'
 
-export type WithoutNullableKeysType<TType> = {
-    [Key in keyof TType]-?: WithoutNullableKeysType<NonNullable<TType[Key]>>
-}
-
 export interface PluginConfig extends Config {
+
     /**
-     * Docker command to build and image from dockerfile
+     * The file path to write the file, it will default to working dir
      *
      * @default ""
      */
-    buildImage?: string
+    filePath?: string
     /**
-     * The name of the image to push to the ECR
+     * The file name to write the file, it will default to semantic-release-versions.json
      *
      * @default ""
      */
-    imageName: string
+    fileName?: string
     /**
      * Additional values which will be used to tag image
      *
